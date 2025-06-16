@@ -4,6 +4,15 @@ import { useState } from "react"
 import { calculateRoR, validateInputs } from "@/utils/calculateRoR"
 import { DollarSign, Calendar, Calculator, RotateCcw } from "lucide-react"
 
+interface ValidationResult {
+  isValid: boolean
+  errors?: {
+    initialAmount?: string
+    finalAmount?: string
+    years?: string
+  }
+}
+
 interface RorFormProps {
   onCalculate: (result: { ror: number; isValid: boolean; error?: string }) => void
   onClear: () => void
@@ -53,7 +62,7 @@ export default function RorForm({ onCalculate, onClear }: RorFormProps) {
     const years = Number.parseFloat(formData.years)
 
     // Validar inputs
-    const validation = validateInputs(initialAmount, finalAmount, years)
+    const validation = validateInputs(initialAmount, finalAmount, years) as ValidationResult
 
     if (!validation.isValid) {
       setErrors(validation.errors || {})
@@ -111,13 +120,9 @@ export default function RorForm({ onCalculate, onClear }: RorFormProps) {
             value={formData.initialAmount}
             onChange={(e) => handleInputChange("initialAmount", e.target.value)}
             placeholder="Ej: 10000"
-            className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 transition-all duration-200 ${
-              errors.initialAmount ? "border-red-300 bg-red-50" : "border-gray-200"
+            className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:border-[#007BFF] focus:ring-[#007BFF]/20 transition-all duration-200 ${
+              errors.initialAmount ? "border-[#FF0000] bg-[#FF0000]/5" : "border-gray-200"
             }`}
-            style={{
-              focusBorderColor: "#007BFF",
-              focusRingColor: "#007BFF",
-            }}
             onFocus={(e) => {
               e.target.style.borderColor = "#007BFF"
               e.target.style.boxShadow = `0 0 0 2px ${errors.initialAmount ? "#FF0000" : "#007BFF"}33`
@@ -151,13 +156,9 @@ export default function RorForm({ onCalculate, onClear }: RorFormProps) {
             value={formData.finalAmount}
             onChange={(e) => handleInputChange("finalAmount", e.target.value)}
             placeholder="Ej: 15000"
-            className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 transition-all duration-200 ${
-              errors.finalAmount ? "border-red-300 bg-red-50" : "border-gray-200"
+            className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:border-[#007BFF] focus:ring-[#007BFF]/20 transition-all duration-200 ${
+              errors.finalAmount ? "border-[#FF0000] bg-[#FF0000]/5" : "border-gray-200"
             }`}
-            style={{
-              focusBorderColor: "#007BFF",
-              focusRingColor: "#007BFF",
-            }}
             onFocus={(e) => {
               e.target.style.borderColor = "#007BFF"
               e.target.style.boxShadow = `0 0 0 2px ${errors.finalAmount ? "#FF0000" : "#007BFF"}33`
@@ -191,13 +192,9 @@ export default function RorForm({ onCalculate, onClear }: RorFormProps) {
             value={formData.years}
             onChange={(e) => handleInputChange("years", e.target.value)}
             placeholder="Ej: 5"
-            className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 transition-all duration-200 ${
-              errors.years ? "border-red-300 bg-red-50" : "border-gray-200"
+            className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:border-[#007BFF] focus:ring-[#007BFF]/20 transition-all duration-200 ${
+              errors.years ? "border-[#FF0000] bg-[#FF0000]/5" : "border-gray-200"
             }`}
-            style={{
-              focusBorderColor: "#007BFF",
-              focusRingColor: "#007BFF",
-            }}
             onFocus={(e) => {
               e.target.style.borderColor = "#007BFF"
               e.target.style.boxShadow = `0 0 0 2px ${errors.years ? "#FF0000" : "#007BFF"}33`
@@ -220,22 +217,22 @@ export default function RorForm({ onCalculate, onClear }: RorFormProps) {
       </div>
 
       {/* Botones */}
-      <div className="flex gap-4 pt-4">
+      <div className="flex flex-col sm:flex-row gap-4 pt-4">
         <button
           onClick={handleCalculate}
           disabled={isCalculating}
-          className="flex-1 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:opacity-60"
+          className="w-full sm:flex-1 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:opacity-60"
           style={{
-            backgroundColor: isCalculating ? "#0056D2" : "#007BFF",
+            backgroundColor: isCalculating ? "#990000" : "#FF0000",
           }}
-          onMouseEnter={(e) => {
+          onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
             if (!isCalculating) {
-              e.target.style.backgroundColor = "#0056D2"
+              e.currentTarget.style.backgroundColor = "#990000"
             }
           }}
-          onMouseLeave={(e) => {
+          onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
             if (!isCalculating) {
-              e.target.style.backgroundColor = "#007BFF"
+              e.currentTarget.style.backgroundColor = "#FF0000"
             }
           }}
         >
@@ -254,22 +251,21 @@ export default function RorForm({ onCalculate, onClear }: RorFormProps) {
 
         <button
           onClick={handleClear}
-          className="font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 border-2"
+          className="w-full sm:flex-1 text-[#FF0000] font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
           style={{
-            backgroundColor: "#f8f9fa",
-            borderColor: "#001F3F",
-            color: "#001F3F",
+            backgroundColor: "white",
+            border: "2px solid #FF0000"
           }}
-          onMouseEnter={(e) => {
-            e.target.style.backgroundColor = "#001F3F"
-            e.target.style.color = "white"
+          onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+            e.currentTarget.style.backgroundColor = "#FF0000"
+            e.currentTarget.style.color = "white"
           }}
-          onMouseLeave={(e) => {
-            e.target.style.backgroundColor = "#f8f9fa"
-            e.target.style.color = "#001F3F"
+          onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+            e.currentTarget.style.backgroundColor = "white"
+            e.currentTarget.style.color = "#FF0000"
           }}
         >
-          <RotateCcw className="w-4 h-4" />
+          <RotateCcw className="w-4 h-4" style={{ color: "currentColor" }} />
           Limpiar
         </button>
       </div>

@@ -25,25 +25,25 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-[#001F3F]/10 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#001F3F]/5 to-[#001F3F]/10 py-4 sm:py-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="p-3 rounded-full" style={{ backgroundColor: "#007BFF" }}>
-              <Calculator className="w-8 h-8 text-white" />
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+            <div className="p-2 sm:p-3 rounded-full" style={{ backgroundColor: "#007BFF" }}>
+              <Calculator className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
             </div>
-            <h1 className="text-4xl font-bold" style={{ color: "#001F3F" }}>
+            <h1 className="text-2xl sm:text-4xl font-bold" style={{ color: "#001F3F" }}>
               Calculadora de Tasa de Rendimiento
             </h1>
           </div>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto px-4">
             Calcula la tasa de rendimiento anual de tus inversiones de manera rápida y precisa
           </p>
         </div>
 
         {/* Main Content */}
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
           {/* Form Section */}
           <div className="space-y-6">
             <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">

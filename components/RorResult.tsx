@@ -57,16 +57,16 @@ export default function RorResult({ result }: RorResultProps) {
     <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
       <div className="text-center mb-6">
         <div
-          className="w-32 h-32 rounded-full flex items-center justify-center mx-auto mb-4 relative"
+          className="w-24 h-24 sm:w-32 sm:h-32 rounded-full flex items-center justify-center mx-auto mb-4 relative"
           style={{
             background: `conic-gradient(${isPositive ? "#007BFF" : "#FF0000"} ${Math.min(Math.abs(rorPercentage) * 3.6, 360)}deg, #f1f5f9 0deg)`,
           }}
         >
-          <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white rounded-full flex items-center justify-center">
             {isPositive ? (
-              <TrendingUp className="w-8 h-8" style={{ color: "#007BFF" }} />
+              <TrendingUp className="w-6 h-6 sm:w-8 sm:h-8" style={{ color: "#007BFF" }} />
             ) : (
-              <TrendingDown className="w-8 h-8" style={{ color: "#FF0000" }} />
+              <TrendingDown className="w-6 h-6 sm:w-8 sm:h-8" style={{ color: "#FF0000" }} />
             )}
           </div>
           {/* Indicador de porcentaje en el borde */}
@@ -83,14 +83,14 @@ export default function RorResult({ result }: RorResultProps) {
           </div>
         </div>
 
-        <h3 className="text-2xl font-semibold mb-2" style={{ color: "#001F3F" }}>
+        <h3 className="text-xl sm:text-2xl font-semibold mb-2" style={{ color: "#001F3F" }}>
           Tasa de Rendimiento
         </h3>
 
         {/* Barra de progreso horizontal */}
-        <div className="w-full bg-gray-200 rounded-full h-4 mb-4">
+        <div className="w-full bg-gray-200 rounded-full h-3 sm:h-4 mb-4">
           <div
-            className="h-4 rounded-full transition-all duration-1000 ease-out relative"
+            className="h-3 sm:h-4 rounded-full transition-all duration-1000 ease-out relative"
             style={{
               width: `${Math.min(Math.abs(rorPercentage) * 2, 100)}%`,
               backgroundColor: isPositive ? "#007BFF" : "#FF0000",
@@ -102,49 +102,49 @@ export default function RorResult({ result }: RorResultProps) {
           </div>
         </div>
 
-        <p className="text-gray-600">Rendimiento anual promedio</p>
+        <p className="text-gray-600 text-sm sm:text-base">Rendimiento anual promedio</p>
       </div>
 
       {/* Interpretación */}
       <div
-        className="rounded-xl p-4 border-2"
+        className="rounded-xl p-3 sm:p-4 border-2"
         style={{
           backgroundColor: interpretation.bgColor,
           borderColor: interpretation.borderColor,
           color: interpretation.textColor,
         }}
       >
-        <h4 className="font-semibold mb-2">{interpretation.title}</h4>
-        <p className="text-sm">{interpretation.description}</p>
+        <h4 className="font-semibold mb-2 text-sm sm:text-base">{interpretation.title}</h4>
+        <p className="text-xs sm:text-sm">{interpretation.description}</p>
       </div>
 
       {/* Métricas adicionales */}
-      <div className="grid grid-cols-2 gap-4 mt-6">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6">
         <div
-          className="rounded-lg p-4 text-center border-2"
+          className="rounded-lg p-3 sm:p-4 text-center border-2"
           style={{ backgroundColor: "#f8f9fa", borderColor: "#007BFF" }}
         >
-          <div className="text-2xl font-bold" style={{ color: "#001F3F" }}>
+          <div className="text-xl sm:text-2xl font-bold" style={{ color: "#001F3F" }}>
             {Math.abs(rorPercentage).toFixed(1)}%
           </div>
-          <div className="text-sm text-gray-600">Rendimiento Absoluto</div>
+          <div className="text-xs sm:text-sm text-gray-600">Rendimiento Absoluto</div>
         </div>
 
         <div
-          className="rounded-lg p-4 text-center border-2"
+          className="rounded-lg p-3 sm:p-4 text-center border-2"
           style={{ backgroundColor: "#f8f9fa", borderColor: "#007BFF" }}
         >
-          <div className="text-2xl font-bold" style={{ color: "#001F3F" }}>
+          <div className="text-xl sm:text-2xl font-bold" style={{ color: "#001F3F" }}>
             {isPositive ? "Ganancia" : "Pérdida"}
           </div>
-          <div className="text-sm text-gray-600">Resultado de Inversión</div>
+          <div className="text-xs sm:text-sm text-gray-600">Resultado de Inversión</div>
         </div>
       </div>
     </div>
   )
 }
 
-function getInterpretation(rorPercentage) {
+function getInterpretation(rorPercentage: number) {
   if (rorPercentage >= 15) {
     return {
       type: "excellent",
